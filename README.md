@@ -1,0 +1,2 @@
+# lab-dsc
+factorial
