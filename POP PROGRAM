@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure to create a node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// 'top' pointer to keep track of the stack head
+struct Node* top = NULL;
+
+// Function to check if the stack is empty
+int empty() {
+    return top == NULL;
+}
+
+// Function to add an element to the stack
+void push(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf("Heap overflow\n");
+        return;
+    }
+    newNode->data = value;
+    newNode->next = top; // Link new node to the previous top
+    top = newNode;       // Move top to the new node
+}
+
+// Function to remove and return the top element
+int pop() {
+    if (empty()) {
+        printf("Stack Underflow\n");
+        return -1;
+    }
+    struct Node* temp = top;
+    int poppedValue = temp->data;
+    top = top->next;     // Move top to the next node
+    free(temp);          // Release memory
+    return poppedValue;
+}
+
+// Function to see the top element without removing it
+int peek() {
+    if (empty()) return -1;
+    return top->data;
+}
+
+int main() {
+    // Pushing values onto the stack
+    push(10);
+    push(20);
+    push(30);
+
+    // Peek at the top element
+    printf("Top = %d\n", peek());
+
+    // Popping values
+    printf("%d popped\n", pop());
+    printf("%d popped\n", pop());
+
+    return 0;
+}
