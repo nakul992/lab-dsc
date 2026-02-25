@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+void insertAtEnd(int x)
+{
+    struct node *newnode, *temp;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = x;
+    if (head == NULL)
+    {
+        newnode->next = newnode;
+        head = newnode;
+    }
+    else
+    {
+        temp = head;
+        while (temp->next != head)
+        {
+            temp = temp->next;
+        }
+        temp->next = newnode;
+        newnode->next = head;
+    }
+}
+void display()
+{
+    struct node *temp;
+
+    if (head == NULL)
+    {
+        printf("List is empty\n");
+        return;
+    }
+
+    temp = head;
+
+    do
+    {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    } while (temp != head);
+
+    printf("(back to head)\n");
+}
+int main()
+{
+    insertAtEnd(10);
+    insertAtEnd(20);
+    insertAtEnd(30);
+    insertAtEnd(40);
+
+    printf("Circular Linked List:\n");
+    display();
+
+    return 0;
+}
